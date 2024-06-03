@@ -5,7 +5,7 @@ const app = express();
 const cors = require('cors');
 
 app.use(cors({
-    origin: 'https://localhost:8000/', 
+    origin: 'https://localhost:3000/', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'], 
     allowedHeaders: ['Content-Type', 'Authorization'] 
   }));
@@ -133,6 +133,6 @@ app.delete('/funcionarios/deletar/:id', (req, res) => {
 });
 
 
-app.listen(8000, () => {
-    console.log('Servidor iniciado na porta 8000');
+app.listen(3000, () => {
+    console.log('Servidor iniciado na porta 3000');
 });
