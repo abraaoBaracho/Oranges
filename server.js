@@ -51,6 +51,22 @@ let funcionarios = [
 
 app.get('/funcionarios', (req, res) => {
     res.json(funcionarios);
+
+    const mysql = require('mysql');
+    const connection = mysql.createConnection ({
+        host: ' local do banco ', 
+        user: ' usuario ', 
+        password: ' senha',
+    });
+
+    connection.connect();
+    // adicionar o codigo sql correpondente ao select
+    connection.query('SELECT', function(err, rows, fields){
+        if (err) throw err;
+        console.log('A solução é: ', rowa[0].soluctions);
+    });
+
+    connection.end();
 });
 
 
@@ -63,6 +79,22 @@ app.get('/funcionarios/:id', (req, res) => {
     }
 
     res.json(funcionario);
+
+    const mysql = require('mysql');
+    const connection = mysql.createConnection ({
+        host: ' local do banco ', 
+        user: ' usuario ', 
+        password: ' senha',
+    });
+
+    connection.connect();
+    // adicionar o codigo sql correspondente ao tipo de select
+    connection.query('SELECT', function(err, rows, fields){
+        if (err) throw err;
+        console.log('A solução é: ', rowa[0].soluctions);
+    });
+
+    connection.end();
 });
 
 
@@ -89,7 +121,25 @@ app.post('/funcionarios/cadastrar', (req, res) => {
 
     funcionarios.push(novoFuncionario);
     res.status(201).json({ mensagem: "Funcionario cadastrado com sucesso!" });
+
+    const mysql = require('mysql');
+    const connection = mysql.createConnection ({
+        host: ' local do banco ', 
+        user: ' usuario ', 
+        password: ' senha',
+    });
+
+    connection.connect();
+    // adicionar o codigo sql correpondente
+
+    connection.query('INSERT', function(err, rows, fields){
+        if (err) throw err;
+        console.log('A solução é: ', rowa[0].soluctions);
+    });
+
+    connection.end();
 });
+
 
 
 
@@ -116,6 +166,22 @@ app.put('/funcionarios/atualizar/:id', (req, res) => {
     funcionario.dataDeAtt = dataFormatada;
 
     res.json({ mensagem: "Funcionario atualizado com sucesso" });
+
+    const mysql = require('mysql');
+    const connection = mysql.createConnection ({
+        host: ' local do banco ', 
+        user: ' usuario ', 
+        password: ' senha',
+    });
+
+    connection.connect();
+// adicionar o codigo sql correpondente
+    connection.query(' UPDATE ', function(err, rows, fields){
+        if (err) throw err;
+        console.log('A solução é: ', rowa[0].soluctions);
+    });
+
+    connection.end();
 });
 
 
@@ -130,6 +196,22 @@ app.delete('/funcionarios/deletar/:id', (req, res) => {
 
     const funcionarioRemovido = funcionarios.splice(index, 1);
     res.json({mensagem: "Funcionario removiso com sucesso"});
+
+    const mysql = require('mysql');
+    const connection = mysql.createConnection ({
+        host: ' local do banco ', 
+        user: ' usuario ', 
+        password: ' senha',
+    });
+
+    connection.connect();
+// adicionar o codigo sql correpondente
+    connection.query('DELET ', function(err, rows, fields){
+        if (err) throw err;
+        console.log('A solução é: ', rowa[0].soluctions);
+    });
+
+    connection.end();
 });
 
 
