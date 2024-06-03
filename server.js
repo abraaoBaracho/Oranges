@@ -66,7 +66,16 @@ app.get('/funcionarios/:id', (req, res) => {
 });
 
 
-app.post('/funcionarios', (req, res) => {
+app.post('/funcionarios/cadastrar', (req, res) => {
+    
+    const now = new Date();
+
+    const dia = String(now.getDate()).padStart(2, '0');
+    const mes = String(now.getMonth() + 1).padStart(2, '0'); 
+    const ano = String(now.getFullYear()).slice(-2); 
+
+    const dataFormatada = `${dia}-${mes}-${ano}`;
+
     const novoFuncionario = {
         id: funcionarios.length ? funcionarios[funcionarios.length - 1].id + 1 : 1,
         nome: req.body.nome,
@@ -75,21 +84,21 @@ app.post('/funcionarios', (req, res) => {
         cargo: req.body.cargo,
         setor: req.body.setor,
         dataDeEntrada: req.body.dataDeEntrada,
-        dataDeAtt: new Date().toISOString().split('T')[0] 
+        dataDeAtt: dataFormatada
     };
 
     funcionarios.push(novoFuncionario);
-    res.status(201).json({mensagem: "Funcionario adicionado com sucesso!" });
-
+    res.status(201).json({ mensagem: "Funcionario cadastrado com sucesso!" });
 });
 
 
-app.put('/funcionarios/:id', (req, res) => {
+
+app.put('/funcionarios/atualizar/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const funcionario = funcionarios.find(f => f.id === id);
 
     if (!funcionario) {
-        return res.status(404).json({ mensagem: "Funcionário não encontrado"});
+        return res.status(404).json({ mensagem: "Funcionário não encontrado" });
     }
 
     funcionario.nome = req.body.nome || funcionario.nome;
@@ -97,14 +106,21 @@ app.put('/funcionarios/:id', (req, res) => {
     funcionario.idade = req.body.idade || funcionario.idade;
     funcionario.cargo = req.body.cargo || funcionario.cargo;
     funcionario.setor = req.body.setor || funcionario.setor;
-    funcionario.dataDeAtt = new Date().toISOString().split('T')[0];
 
-    res.json({mensagem: "Funcionario atualizado com sucesso"});
+    const now = new Date();
+  
+    const dia = String(now.getDate()).padStart(2, '0');
+    const mes = String(now.getMonth() + 1).padStart(2, '0'); 
+    const ano = String(now.getFullYear()).slice(-2); 
+    const dataFormatada = `${dia}-${mes}-${ano}`;
+    funcionario.dataDeAtt = dataFormatada;
 
+    res.json({ mensagem: "Funcionario atualizado com sucesso" });
 });
 
 
-app.delete('/funcionarios/:id', (req, res) => {
+
+app.delete('/funcionarios/deletar/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const index = funcionarios.findIndex(f => f.id === id);
 
